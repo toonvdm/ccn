@@ -1,0 +1,76 @@
+trainer:
+  log_dir: ../data/working/phase1-logs
+  save_epoch: 500
+  log_epoch: 100
+  vis_epoch: 100
+  n_epochs: 5000
+  batch_size: 150
+  num_workers: 0
+  device: cuda:0
+  vis_args:
+    vis_mapping:
+      image:
+        - reconstruction_a
+        - reconstruction_b
+        - prediction_b
+        - image_in
+        - image_out
+optimizer:
+  type: Adam
+  lr: 0.0005
+  amsgrad: True
+loss:
+  reconstruction_a:
+    type: Constraint
+    for:
+      type: MSE
+    args:
+      tolerance: 40.0
+      lambda_max: 100.0
+      lambda_init: 80.0
+      adjust_tolerance: True
+      adjust_frequency: 500
+      adjust_tolerance_factor: 1.01
+    key: reconstruction_a
+    target: image_in
+  reconstruction_b:
+    type: Constraint
+    for:
+      type: MSE
+    args:
+      tolerance: 40.0
+      lambda_max: 100.0
+      lambda_init: 80.0
+      adjust_tolerance: True
+      adjust_frequency: 500
+      adjust_tolerance_factor: 1.01
+    key: reconstruction_b
+    target: image_out
+  prediction_b:
+    type: Constraint
+    for:
+      type: MSE
+    args:
+      tolerance: 40.0
+      adjust_tolerance: True
+      lambda_max: 100.0
+      lambda_init: 100.0
+      adjust_frequency: 2500
+      adjust_tolerance_factor: 1.01
+    key: prediction_b
+    target: image_out
+  kl_loss_transition:
+    type: KL
+    weight: 50
+    key: q_b_transitioned
+    target: q_b
+  kl_regularization_a:
+    type: KL
+    weight: 1
+    key: q_a
+    target: std_normal
+  kl_regularization_b:
+    type: KL
+    weight: 1
+    key: q_b
+    target: std_normal

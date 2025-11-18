@@ -1,0 +1,5 @@
+python phase_1_train_ccn.py --train_config_path phase_1_train_config.yml --model_config_path phase_1_model_vanillaccn.yml --dataset_config_path single-distance-up-dataset.yml --object_name 002_master_chef_can
+python phase_1_train_ccn.py --train_config_path phase_1_train_config.yml --model_config_path phase_1_model_vanillaccn.yml --dataset_config_path single-distance-up-dataset.yml --object_name 003_cracker_box
+python phase_1_train_ccn.py --train_config_path phase_1_train_config.yml --model_config_path phase_1_model_vanillaccn.yml --dataset_config_path single-distance-up-dataset.yml --object_name 004_sugar_box
+python phase_1_train_ccn.py --train_config_path phase_1_train_config.yml --model_config_path phase_1_model_vanillaccn.yml --dataset_config_path single-distance-up-dataset.yml --object_name 005_tomato_soup_can
+python phase_1_train_ccn.py --train_config_path phase_1_train_config.yml --model_config_path phase_1_model_vanillaccn.yml --dataset_config_path single-distance-up-dataset.yml --object_name 006_mustard_bottle

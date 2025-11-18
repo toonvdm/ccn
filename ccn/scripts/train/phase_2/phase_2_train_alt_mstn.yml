@@ -1,0 +1,47 @@
+trainer:
+  log_dir: ../data/working/phase2-logs
+  save_epoch: 500
+  log_epoch: 50
+  vis_epoch: 50
+  n_epochs: 5000
+  batch_size: 100
+  num_workers: 0
+  device: cuda:0
+  vis_args:
+    vis_mapping:
+      image:
+        - reconstruction_a
+        - image_composed
+        - crop
+        - masked_64
+        - image_in
+optimizer:
+  type: Adam
+  lr: 0.0001
+  amsgrad: True
+loss:
+  mse_mask: 
+    type: MSE 
+    key: masked_64 
+    target: image_composed_64
+    weight: 10
+  mse_crop:
+    type: MSE
+    key: crop
+    target: image_in
+    weight: 10
+  kl_loss_transition:
+    type: KL
+    weight: 1
+    key: q_b_transitioned
+    target: q_b
+  kl_regularization_a:
+    type: KL
+    weight: 1
+    key: q_a
+    target: std_normal
+  classification: 
+    type: BCE
+    weight: 10 
+    key: presence_hat
+    target: presence

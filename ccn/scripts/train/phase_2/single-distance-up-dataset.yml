@@ -1,0 +1,32 @@
+location: ../../data/single-distance-up
+dataset_global_name: YCB-Single-Distance-Up
+train_dataset:
+  type: SphericalObjectDataset
+  backend: ccn.dataset
+  device: "cuda:0"
+  load_device: "cuda:0"
+  dtype: float32
+  interval: [0.0, 0.90]
+  anchor_interval: [0.0, 0.25]
+  ds_length: 500
+  considered_object_files:
+    - 002_master_chef_can_textured.h5
+    - 003_cracker_box_textured.h5
+    - 004_sugar_box_textured.h5
+    - 005_tomato_soup_can_textured.h5
+    - 006_mustard_bottle_textured.h5
+val_dataset:
+  type: SphericalObjectDataset
+  backend: ccn.dataset
+  device: "cuda:0"
+  load_device: "cuda:0"
+  dtype: float32
+  interval: [0.9, 1.0]
+  anchor_interval: [0.0, 0.25]
+  ds_length: 500
+  considered_object_files:
+    - 002_master_chef_can_textured.h5
+    - 003_cracker_box_textured.h5
+    - 004_sugar_box_textured.h5
+    - 005_tomato_soup_can_textured.h5
+    - 006_mustard_bottle_textured.h5

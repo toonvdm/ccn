@@ -1,0 +1,79 @@
+trainer:
+  log_dir: ../../mnist_example/vae-logs
+  data_dir: ../../mnist_example/data
+  log_epoch: 1
+  save_epoch: 1
+  n_epochs: 50
+  batch_size: 1000
+  num_workers: 1
+optimizer:
+  type: Adadelta
+  lr: 1
+scheduler:
+  type: StepLR
+  step_size: 20
+loss:
+  reconstruction:
+    type: Constraint
+    for:
+      type: NLL
+    key: image_distribution
+    target: image
+    args:
+      tolerance: 278
+  kl:
+    type: KL
+    key: posterior
+    target: std_normal
+model:
+  modules:
+    - input: image
+      type: View
+      args:
+        shape: [784]
+    - type: Linear
+      args:
+        in_features: 784
+        out_features: 128
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 128
+        out_features: 64
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 64
+        out_features: 12
+    - type: ReLU
+    - type: VariationalLayer
+      output: posterior
+      args:
+        num_inputs: 12
+        num_outputs: 3
+    - type: Sample
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 3
+        out_features: 64
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 64
+        out_features: 128
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 128
+        out_features: 784
+    - type: Tanh
+    - type: View
+      output: image
+      args:
+        shape: [1, 28, 28]
+    - output: image_distribution
+      type: ImageDistribution
+      backend: trainer_example
+      args:
+        variance: 0.5

@@ -1,0 +1,23 @@
+model:
+  name: "MSTN-POC-V3-classify"
+  modules:
+    - type: MSTN
+      backend: ccn.models.networks
+      input: ["image_composed"]
+      output: ["crop", "masked_64", "presence_hat", "z_where"]
+      args:
+        invert_scale: True
+    - type: VanillaCCN
+      backend: ccn.models.networks
+      input: ["crop", "image_out", "action"]
+      output: 
+        - q_a
+        - q_b
+        - q_b_transitioned
+        - reconstruction_a
+        - reconstruction_b
+        - prediction_b
+      args: 
+        z_size: 8
+        action_size: 2
+        freeze: True

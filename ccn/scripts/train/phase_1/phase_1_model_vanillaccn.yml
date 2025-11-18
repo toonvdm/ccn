@@ -1,0 +1,16 @@
+model:
+  name: "2022-12-19-VanillaCCN"
+  modules:
+    - type: VanillaCCN
+      backend: ccn.models.networks
+      input: ["image_in", "image_out", "action"]
+      output: 
+        - q_a
+        - q_b
+        - q_b_transitioned
+        - reconstruction_a
+        - reconstruction_b
+        - prediction_b
+      args: 
+        z_size: 8
+        action_size: 2

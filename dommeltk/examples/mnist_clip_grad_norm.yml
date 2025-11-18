@@ -1,0 +1,53 @@
+trainer:
+  log_dir: ../../mnist_example/clip-grad-norm
+  data_dir: ../../mnist_example/data
+  log_epoch: 1
+  save_epoch: 1
+  n_epochs: 50
+  batch_size: 1000
+  num_workers: 1
+  clip_grad_norm: 1
+optimizer:
+  type: SGD
+  lr: 10000
+scheduler:
+  type: StepLR
+  step_size: 20
+loss:
+  kl:
+    type: KL
+    key: output_distribution
+    target: standard_normal
+model:
+  modules:
+    - input: image
+      type: View
+      args:
+        shape: [784]
+    - type: Linear
+      args:
+        in_features: 784
+        out_features: 128
+    - type: ReLU
+    - type: Linear
+      args:
+        in_features: 128
+        out_features: 64
+    - type: ReLU
+      output: intermediate_value
+    - type: Linear
+      input: intermediate_value
+      output: mean
+      args:
+        in_features: 64
+        out_features: 12
+    - type: Linear
+      input: intermediate_value
+      output: var
+      args:
+        in_features: 64
+        out_features: 12
+    - type: MultivariateNormalNN
+      backend: trainer_example
+      input: [mean, var]
+      output: output_distribution
