@@ -33,3 +33,7 @@ If you find the code useful, please refer to our work using:
       url={https://arxiv.org/abs/2302.03288}, 
 }
 ```
+
+## Acknowledgements 
+
+The dommel toolkit was co-developed at Ghent University by Tim Verbelen (@tverbele), Ozan Catal (@undoomed), and Toon Van de Maele (@toonvdm)
