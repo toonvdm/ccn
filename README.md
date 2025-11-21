@@ -36,4 +36,4 @@ If you find the code useful, please refer to our work using:
 
 ## Acknowledgements 
 
-The dommel toolkit was co-developed at Ghent University by Tim Verbelen (@tverbele), Ozan Catal (@undoomed), and Toon Van de Maele (@toonvdm)
+The dommel toolkit was co-developed at Ghent University by Tim Verbelen [@tverbele](https://github.com/tverbele), Ozan Catal [@ozancatal](https://github.com/undoomed), and Toon Van de Maele [@toonvdm](https://github.com/toonvdm).
